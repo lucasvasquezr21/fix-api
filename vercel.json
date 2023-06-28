@@ -8,9 +8,5 @@
   ],
   "routes": [
     { "src": "/fix-api/.*", "dest": "fix-api/src/index.js" }
-  ],
-  "env": {
-    "mongoURI": "mongodb+srv://lucvasquezr:P65xMjgvqAHAwnJN@fixplus.5exzzca.mongodb.net/fix",
-    "secretKey": "password123"
-  }
+  ]
 }
