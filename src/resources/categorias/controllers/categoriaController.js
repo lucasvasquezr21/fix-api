@@ -12,9 +12,9 @@ export const getCategoria = async (req, res) => {
 };
 // Crear una categoría
 export const createCategoria = async (req, res) => {
-  const { nombre } = req.body;
+  const { category } = req.body;
   try {
-    const categoria = new Categoria({ nombre });
+    const categoria = new Categoria({ category });
     const nuevaCategoria = await categoria.save();
     res.status(201).json(nuevaCategoria);
   } catch (error) {
@@ -25,14 +25,14 @@ export const createCategoria = async (req, res) => {
 // Modificar una categoría
 export const updateCategoria = async (req, res) => {
   const { id } = req.params;
-  const { nombre } = req.body;
+  const { category } = req.body;
   try {
     const categoria = await Categoria.findById(id);
     if (!categoria) {
       res.status(404).json({ error: 'Categoría no encontrada' });
       return;
     }
-    categoria.nombre = nombre;
+    categoria.category = category;
     const categoriaActualizada = await categoria.save();
     res.json(categoriaActualizada);
   } catch (error) {

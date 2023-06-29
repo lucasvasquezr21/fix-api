@@ -1,12 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "fix-api/src/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    { "src": "/fix-api/.*", "dest": "fix-api/src/index.js" }
-  ]
+    "builds": [
+        {
+            "src": "./src/app.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/src/app.js"
+        }
+    ]
 }

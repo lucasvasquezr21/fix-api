@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from '../config.js';
-import User from '../models/userModel.js';
+import environment from '../../../config/environment.js';
+import User from '../../users/models/userModel.js';
 
-export const register = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -19,7 +19,7 @@ export const register = async (req, res) => {
     await newUser.save();
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ userId: newUser._id }, config.secretKey);
+    const accessToken = jwt.sign({ userId: newUser._id }, environment.secretKey);
 
     // Enviar una respuesta al cliente
     res.status(201).json({ accessToken });
@@ -29,7 +29,7 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -45,7 +45,7 @@ export const login = async (req, res) => {
     }
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ userId: user._id }, config.secretKey);
+    const accessToken = jwt.sign({ userId: user._id }, environment.secretKey);
 
     // Enviar una respuesta al cliente
     res.status(200).json({ accessToken });

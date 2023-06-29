@@ -1,7 +1,7 @@
 // src/routes/userRoutes.js
 import express from 'express';
-import { getUsers, getUserById, updateUser, deleteUser } from '../controllers/userController.js';
-import authenticateToken from '../middlewares/authenticateToken.js';
+import { getUsers, getUserById, updateUser, deleteUser } from '../controllers/userController.js'
+import authenticateToken from '../../auth/middlewares/authenticateToken.js';
 
 const router = express.Router();
 

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import config from './config.js';
+import environment from './environment.js';
 
-const connectDB = async () => {
+export const connectDB = async () => {
   try {
     // Crear conexión a MongoDB utilizando la URI de configuración
-    const connection = await mongoose.connect(config.process.env.mongoURI, {
+    const connection = await mongoose.connect(environment.mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

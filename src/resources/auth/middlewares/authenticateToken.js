@@ -1,7 +1,8 @@
 // src/middlewares/authenticateToken.js
 import jwt from 'jsonwebtoken';
-import config from '../config.js';
-import User from '../models/userModel.js';
+import environment from '../../../config/environment.js';
+import User from '../../users/models/userModel.js';
+import Maestro from '../../maestros/models/maestroModel.js';
 
 const authenticateToken = async (req, res, next) => {
   try {
@@ -11,13 +12,16 @@ const authenticateToken = async (req, res, next) => {
       return res.status(401).json({ message: 'No se ha proporcionado un token de acceso' });
     }
 
-    const decodedToken = jwt.verify(accessToken, config.secretKey);
+    const decodedToken = jwt.verify(accessToken, environment.secretKey);
     const user = await User.findById(decodedToken.userId);
-    if (!user) {
+    const maestro = await Maestro.findById(decodedToken.maestroId);
+    
+    if (!user && !maestro) {
       return res.status(401).json({ message: 'Token de acceso no válido' });
     }
 
     req.user = user;
+    req.maestro = maestro;
     next();
   } catch (error) {
     console.error(error);
