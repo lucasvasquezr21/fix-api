@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import environment from '../../../config/environment.js';
 import User from '../../users/models/userModel.js';
@@ -14,7 +14,7 @@ export const registerUser = async (req, res) => {
     }
 
     // Crear un nuevo usuario
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
@@ -39,7 +39,7 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Credenciales inválidas' });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Credenciales inválidas' });
     }

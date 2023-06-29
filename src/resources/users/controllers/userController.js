@@ -44,7 +44,7 @@ export const updateUser = async (req, res) => {
 
     // Actualizar el correo electrónico y la contraseña del usuario
     if (email) user.email = email;
-    if (password) user.password = await bcrypt.hash(password, 10);
+    if (password) user.password = await bcryptjs.hash(password, 10);
     await user.save();
 
     // Enviar una respuesta al cliente

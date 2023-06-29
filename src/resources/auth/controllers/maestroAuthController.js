@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import environment from '../../../config/environment.js';
 import Maestro from '../../maestros/models/maestroModel.js';
@@ -15,7 +15,7 @@ export const registerMaestro = async (req, res) => {
     }
 
     // Crear un nuevo maestro
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
     const newMaestro = new Maestro({ name, email, password: hashedPassword });
     await newMaestro.save();
 
@@ -40,7 +40,7 @@ export const loginMaestro = async (req, res) => {
       return res.status(401).json({ message: 'Credenciales inválidas' });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, maestro.password);
+    const isPasswordValid = await bcryptjs.compare(password, maestro.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Credenciales inválidas' });
     }
