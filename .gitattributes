@@ -1,0 +1,2 @@
+*.json -crlf
+*.package-lock.json -crlf
