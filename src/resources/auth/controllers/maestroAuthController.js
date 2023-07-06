@@ -6,7 +6,7 @@ import Maestro from '../../maestros/models/maestroModel.js';
 export const registerMaestro = async (req, res) => {
   try {
     console.log(req.body);
-    const { name, email, password } = req.body;
+    const {email, password } = req.body;
 
     // Verificar si ya existe un maestro con el mismo correo electrónico
     const existingMaestro = await Maestro.findOne({ email });
@@ -16,7 +16,7 @@ export const registerMaestro = async (req, res) => {
 
     // Crear un nuevo maestro
     const hashedPassword = await bcryptjs.hash(password, 10);
-    const newMaestro = new Maestro({ name, email, password: hashedPassword });
+    const newMaestro = new Maestro({email, password: hashedPassword });
     await newMaestro.save();
 
     // Generar un token de acceso
@@ -32,7 +32,7 @@ export const registerMaestro = async (req, res) => {
 
 export const loginMaestro = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const {email, password } = req.body;
 
     // Verificar si el correo electrónico y la contraseña son correctos
     const maestro = await Maestro.findOne({ email });

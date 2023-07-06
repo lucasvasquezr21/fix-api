@@ -5,7 +5,7 @@ import User from '../../users/models/userModel.js';
 
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
 
     // Verificar si ya existe un usuario con el mismo correo electrónico
     const existingUser = await User.findOne({ email });
@@ -15,7 +15,7 @@ export const registerUser = async (req, res) => {
 
     // Crear un nuevo usuario
     const hashedPassword = await bcryptjs.hash(password, 10);
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
 
     // Generar un token de acceso
@@ -31,7 +31,7 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
 
     // Verificar si el correo electrónico y la contraseña son correctos
     const user = await User.findOne({ email });
