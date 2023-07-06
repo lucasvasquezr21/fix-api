@@ -20,7 +20,7 @@ export const registerMaestro = async (req, res) => {
     await newMaestro.save();
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ maestroId: newMaestro._id }, environment.secretKey);
+    const accessToken = jwt.sign({ maestroId: newMaestro._id }, environment.secretKey, { expiresIn: '5m' });
 
     // Enviar una respuesta al cliente
     res.status(201).json({ accessToken });
@@ -46,7 +46,7 @@ export const loginMaestro = async (req, res) => {
     }
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ maestroId: maestro._id }, environment.secretKey);
+    const accessToken = jwt.sign({ maestroId: maestro._id }, environment.secretKey, { expiresIn: '30m' });
 
     // Enviar una respuesta al cliente
     res.status(200).json({ accessToken });

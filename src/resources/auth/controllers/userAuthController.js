@@ -10,7 +10,7 @@ export const registerUser = async (req, res) => {
     // Verificar si ya existe un usuario con el mismo correo electrónico
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Ya existe un usuario con el mismo correo electrónico' });
+      return res.status(400).json({ success: false, message: 'Ya existe un usuario con el mismo correo electrónico' });
     }
 
     // Crear un nuevo usuario
@@ -19,13 +19,13 @@ export const registerUser = async (req, res) => {
     await newUser.save();
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ userId: newUser._id }, environment.secretKey);
+    const accessToken = jwt.sign({ userId: newUser._id }, environment.secretKey, { expiresIn: '5m' });
 
     // Enviar una respuesta al cliente
-    res.status(201).json({ accessToken });
+    res.status(201).json({ success: true, accessToken });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al registrar el usuario' });
+    res.status(500).json({ success: false, message: 'Ha ocurrido un error al iniciar sesión' });
   }
 };
 
@@ -36,21 +36,21 @@ export const loginUser = async (req, res) => {
     // Verificar si el correo electrónico y la contraseña son correctos
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: 'Credenciales inválidas' });
+      return res.status(401).json({ success: false, message: 'Credenciales inválidas' });
     }
 
     const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Credenciales inválidas' });
+      return res.status(401).json({success: false,  message: 'Credenciales inválidas' });
     }
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ userId: user._id }, environment.secretKey);
+    const accessToken = jwt.sign({ userId: user._id }, environment.secretKey, { expiresIn: '30m' });
 
     // Enviar una respuesta al cliente
     res.status(200).json({ accessToken });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al iniciar sesión' });
+    res.status(500).json({success: false, message: 'Ha ocurrido un error al iniciar sesión' });
   }
 };
