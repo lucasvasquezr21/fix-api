@@ -2,7 +2,7 @@
 import jwt from 'jsonwebtoken';
 import environment from '../../../config/environment.js';
 import User from '../../users/models/userModel.js';
-import Maestro from '../../maestros/models/maestroModel.js';
+import Admin from '../../admin/models/adminModel.js';
 
 const authenticateToken = async (req, res, next) => {
   try {
@@ -14,14 +14,14 @@ const authenticateToken = async (req, res, next) => {
 
     const decodedToken = jwt.verify(accessToken, environment.secretKey);
     const user = await User.findById(decodedToken.userId);
-    const maestro = await Maestro.findById(decodedToken.maestroId);
+    const admin = await Admin.findById(decodedToken.adminId);
     
-    if (!user && !maestro) {
+    if (!user && !admin) {
       return res.status(401).json({ message: 'Token de acceso no válido' });
     }
 
     req.user = user;
-    req.maestro = maestro;
+    req.admin = admin;
     next();
   } catch (error) {
     console.error(error);

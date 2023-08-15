@@ -1,7 +1,7 @@
-// src/models/maestroModel.js
+// src/models/adminModel.js
 import mongoose from 'mongoose';
 
-const maestroSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true},
   password: { type: String, required: true },
@@ -20,6 +20,6 @@ const maestroSchema = new mongoose.Schema({
   ],
 });
 
-const Maestro = mongoose.model('Maestro', maestroSchema);
+const Admin = mongoose.model('Admin', adminSchema);
 
-export default Maestro;
+export default Admin;

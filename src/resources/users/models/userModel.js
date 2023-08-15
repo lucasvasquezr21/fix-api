@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
   country : { type: String, required: false },
   city : { type: String, required: false },
   phone : { type: String, required: false },
-  
 });
 
 const User = mongoose.model('User', userSchema);
