@@ -1,8 +1,8 @@
 // src/middlewares/authenticateToken.js
 import jwt from 'jsonwebtoken';
 import environment from '../../../config/environment.js';
-import User from '../../users/models/userModel.js';
-import Admin from '../../admin/models/adminModel.js';
+import User from '../../users/userModel.js';
+import Admin from '../../admin/adminModel.js';
 
 const authenticateToken = async (req, res, next) => {
   try {
