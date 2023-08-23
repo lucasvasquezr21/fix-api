@@ -10,12 +10,27 @@ export const getCategorias = async (req, res) => {
   }
 };
 
+// Obtener una categoría por id
+export const getCategoriaById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const categoria = await Categoria.findById(id);
+    if (!categoria) {
+      res.status(404).json({ error: 'Categoría no encontrada' });
+      return;
+    }
+    res.json(categoria);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener la categoría' });
+  }
+};
+
 // Crear una categoría
 export const createCategoria = async (req, res) => {
-  const { category } = req.body;
+  const { title } = req.body;
   try {
     const nuevaCategoria = await Categoria.create({
-       category,
+       title,
        description,
        img,
        date
@@ -29,11 +44,11 @@ export const createCategoria = async (req, res) => {
 // Modificar una categoría
 export const updateCategoria = async (req, res) => {
   const { id } = req.params;
-  const { category, description, img, date } = req.body;
+  const { title, description, img, date } = req.body;
   try {
     const categoriaActualizada = await Categoria.findByIdAndUpdate(
       id,
-      { category, description, img, date},
+      { title, description, img, date},
       { new: true }
     );
     if (!categoriaActualizada) {

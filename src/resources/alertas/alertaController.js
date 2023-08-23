@@ -28,70 +28,58 @@ export const getAlertaById = async (req, res) => {
 
 // Crear un alerta
 export const createAlerta = async (req, res) => {
-  const { name, email, password, country, city, phone, categories, rate, works } = req.body;
+  const { title, description, ubication, img, date, data} = req.body;
   try {
-    const admin = new Admin({
-      name,
-      email,
-      password,
-      country,
-      city,
-      phone,
-      categories,
-      rate,
-      works: works.map((work) => ({
-        title: work.title,
-        img: work.img,
-        description: work.description,
-        date: work.date,
-      })),
+    const alerta = new Alerta({
+      title,
+      description,
+      ubication,
+      img,
+      date,
+      data
     });
-    const nuevoAdmin = await admin.save();
-    res.status(201).json(nuevoAdmin);
+    const nuevaAlerta = await alerta.save();
+    res.status(201).json(nuevaAlerta);
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear el admin' });
+    res.status(500).json({ error: 'Error al crear la alerta' });
   }
 };
 
-// Modificar un admin
-export const updateAdmin = async (req, res) => {
+// Modificar un alerta
+export const updateAlerta = async (req, res) => {
   const { id } = req.params;
-  const { name, email, phone, categories, rate, works } = req.body;
+  const { title, description, ubication, img, date, data} = req.body;
   try {
-    const admin = await Admin.findById(id);
-    if (!admin) {
-      res.status(404).json({ error: 'Admin no encontrado' });
+    const alerta = await Alerta.findById(id);
+    if (!alerta) {
+      res.status(404).json({ error: 'Alerta no encontrada' });
       return;
     }
-    admin.name = name;
-    admin.email = email;
-    admin.phone = phone;
-    admin.categories = categories;
-    admin.rate = rate;
-    admin.works = works.map((work) => ({
-      title: work.title,
-      img: work.img,
-      description: work.description,
-      date: work.date,
-    }));
-    const adminActualizado = await admin.save();
-    res.status(200).json(adminActualizado);
+    alerta.title = title;
+    alerta.description = description;
+    alerta.ubication = ubication;
+    alerta.img = img;
+    alerta.date = date;
+    alerta.data = data;
+
+    const alertaActualizada = await alerta.save();
+    res.status(200).json(alertaActualizada);
   } catch (error) {
-    res.status(500).json({ error: 'Error al modificar el admin' });
+    res.status(500).json({ error: 'Error al modificar la alerta' });
   }
 };
 
-// Eliminar un admin
-export const deleteAdmin = async (req, res) => {
+// Eliminar un alerta
+export const deleteAlerta = async (req, res) => {
   const { id } = req.params;
   try {
-    const admin = await Admin.findByIdAndDelete(id);
-    if (!admin) {
-      res.status(404).json({ error: 'Admin no encontrado' });
+    const alerta = await Alerta.findByIdAndDelete(id);
+    if (!alerta) {
+      res.status(404).json({ error: 'Alerta no encontrada' });
       return;
     }
-    res.json({ message: 'Admin eliminado exitosamente' });
+    res.json({ message: 'Alerta eliminada exitosamente' });
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar el admin' });
+    res.status(500).json({ error: 'Error al eliminar la alerta' });
   }
 };

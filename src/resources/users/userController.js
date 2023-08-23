@@ -25,6 +25,27 @@ export const getUserById = async (req, res) => {
   }
 };
 
+export const createUser = async (req, res) => {
+  const { name, email, password, country, city, phone, rol, comuna, data } = req.body;
+  try {
+    const newUser = await User.create({
+      name,
+      email,
+      password: await bcryptjs.hash(password, 10),
+      country,
+      city,
+      phone,
+      rol,
+      comuna,
+      data,
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Ha ocurrido un error al crear el usuario' });
+  }
+};
+
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { email, password } = req.body;
@@ -48,15 +69,12 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findByIdAndDelete(id);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
-
-    await user.remove();
-    res.status(200).json({ message: 'Usuario eliminado exitosamente' });
+    res.json({ message: 'Usuario eliminado exitosamente' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Ha ocurrido un error al eliminar el usuario' });
+    res.status(500).json({ error: 'Error al eliminar el usuario' });
   }
 };

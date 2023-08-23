@@ -1,7 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import environment from '../../../config/environment.js';
-import Admin from '../../admin/adminModel.js';
+import Admin from '../../admins/adminModel.js';
 
 export const registerAdmin = async (req, res) => {
   try {

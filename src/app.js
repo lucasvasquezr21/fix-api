@@ -5,9 +5,11 @@ import bodyParser from 'body-parser';
 import environment from './config/environment.js';
 import authRoutes from './resources/auth/routes/authRoutes.js';
 import userRoutes from './resources/users/userRoute.js';
-import adminRoutes from './resources/admin/adminRoute.js';
+import adminRoutes from './resources/admins/adminRoute.js';
 import categoriaRoutes from './resources/categorias/categoriaRoute.js';
-// import logger from './resources/auth/helpers/logger.js';
+import vecinosRoutes from './resources/vecinos/vecinoRoute.js';
+import reportesRoutes from './resources/reportes/reporteRoute.js';
+import alertasRoutes from './resources/alertas/alertaRoute.js';
 import { errorHandler } from './resources/auth/helpers/errorHandler.js';
 import { connectDB } from './config/database.config.js';
 
@@ -34,6 +36,9 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/admins', adminRoutes);
 app.use('/categorias', categoriaRoutes);
+app.use('/vecinos', vecinosRoutes);
+app.use('/reportes', reportesRoutes);
+app.use('/alertas', alertasRoutes);
 
 app.listen(environment.PORT, () => {
   console.log(`API INICIADA EN PUERTO: ${environment.PORT}`);

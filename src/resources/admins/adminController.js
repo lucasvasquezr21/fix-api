@@ -28,23 +28,18 @@ export const getAdminById = async (req, res) => {
 
 // Crear un admin
 export const createAdmin = async (req, res) => {
-  const { name, email, password, country, city, phone, categories, rate, works } = req.body;
+  const { name, email, password, country, comuna, city, phone, rol, data } = req.body;
   try {
     const admin = new Admin({
       name,
       email,
       password,
       country,
+      comuna,
       city,
       phone,
-      categories,
-      rate,
-      works: works.map((work) => ({
-        title: work.title,
-        img: work.img,
-        description: work.description,
-        date: work.date,
-      })),
+      rol,
+      data,
     });
     const nuevoAdmin = await admin.save();
     res.status(201).json(nuevoAdmin);
@@ -56,24 +51,22 @@ export const createAdmin = async (req, res) => {
 // Modificar un admin
 export const updateAdmin = async (req, res) => {
   const { id } = req.params;
-  const { name, email, phone, categories, rate, works } = req.body;
+  const { name, email, password, country, comuna, city, phone, rol, data } = req.body;
   try {
     const admin = await Admin.findById(id);
     if (!admin) {
-      res.status(404).json({ error: 'Admin no encontrado' });
-      return;
+      return res.status(404).json({ message: 'Admin no encontrado' });
     }
-    admin.name = name;
-    admin.email = email;
-    admin.phone = phone;
-    admin.categories = categories;
-    admin.rate = rate;
-    admin.works = works.map((work) => ({
-      title: work.title,
-      img: work.img,
-      description: work.description,
-      date: work.date,
-    }));
+    if (name) admin.name = name;
+    if (email) admin.email = email;
+    if (password) admin.password = await bcryptjs.hash(password, 10);
+    if (country) admin.country = country;
+    if (comuna) admin.comuna = comuna;
+    if (city) admin.city = city;
+    if (phone) admin.phone = phone;
+    if (rol) admin.rol = rol;
+    if (data) admin.data = data;
+    
     const adminActualizado = await admin.save();
     res.status(200).json(adminActualizado);
   } catch (error) {
@@ -87,8 +80,7 @@ export const deleteAdmin = async (req, res) => {
   try {
     const admin = await Admin.findByIdAndDelete(id);
     if (!admin) {
-      res.status(404).json({ error: 'Admin no encontrado' });
-      return;
+      return res.status(404).json({ message: 'Admin no encontrado' });
     }
     res.json({ message: 'Admin eliminado exitosamente' });
   } catch (error) {
