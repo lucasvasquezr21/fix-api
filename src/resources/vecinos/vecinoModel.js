@@ -10,7 +10,6 @@ const vecinoSchema = new mongoose.Schema({
   city : { type: String, required: true },
   phone : { type: String, required: false },
   address : { type: String, required: true },
-  comuna : { type: String, required: true },
   data : { type: Object, required: false },
 }, { timestamps: true });
 

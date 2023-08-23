@@ -11,6 +11,28 @@ export const getVecinos = async (req, res) => {
   }
 };
 
+export const createVecino = async (req, res) => {
+  const { email, password , country, comuna, city,phone,address,data} = req.body;
+  try {
+    const vecino = await Vecino.create({
+      name,
+      email,
+      password: await bcryptjs.hash(password, 10),
+      country,
+      comuna,
+      city,
+      phone,
+      address,
+      data,
+
+    });
+    res.status(201).json(vecino);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Ha ocurrido un error al crear el vecino' });
+  }
+};
+
 export const getVecinoById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -36,6 +58,12 @@ export const updateVecino = async (req, res) => {
 
     if (email) vecino.email = email;
     if (password) vecino.password = await bcryptjs.hash(password, 10);
+    if (country) vecino.country = country;
+    if (comuna) vecino.comuna = comuna;
+    if (city) vecino.city = city;
+    if (phone) vecino.phone = phone;
+    if (address) vecino.address = address;
+    if (data) vecino.data = data;
     
     const updatedVecino = await vecino.save();
     res.status(200).json(updatedVecino);
