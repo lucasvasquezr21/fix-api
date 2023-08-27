@@ -27,7 +27,7 @@ export const getReporteById = async (req, res) => {
 
 // Crear un reporte
 export const createReporte = async (req, res) => {
-  const { title } = req.body;
+  const { title, usuario, description, img, ubication, date, data } = req.body;
   try {
     const nuevoReporte = await Reporte.create({
        title,
@@ -47,11 +47,11 @@ export const createReporte = async (req, res) => {
 // Modificar una reporte
 export const updateReporte = async (req, res) => {
   const { id } = req.params;
-  const { title, description, img, ubication, date } = req.body;
+  const { title, description, img, ubication, date , data} = req.body;
   try {
     const reporteActualizado = await Reporte.findByIdAndUpdate(
       id,
-      { title, usuario, description, img, ubication, date, data},
+      { title, description, img, ubication, date, data},
       { new: true }
     );
     if (!reporteActualizado) {
