@@ -1,7 +1,7 @@
 // src/routes/alertaRoute.js
 import express from 'express';
 import { getAlertas, getAlertaById, updateAlerta, deleteAlerta} from './alertaController.js';
-import authenticateToken from '../auth/middlewares/authenticateToken.js';
+import authenticateToken from '../../auth/middlewares/authenticateToken.js';
 
 const router = express.Router();
 

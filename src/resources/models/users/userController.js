@@ -48,13 +48,13 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { email, password, country, city, phone, rol, comuna, data } = req.body;
+  const { name, email, password, country, city, phone, rol, comuna, data } = req.body;
   try {
     const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
-
+    if (name) user.name = name;
     if (email) user.email = email;
     if (password) user.password = await bcryptjs.hash(password, 10);
     if (country) user.country = country;

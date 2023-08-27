@@ -1,7 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import environment from '../../../config/environment.js';
-import Vecino from '../../vecinos/vecinoModel.js';
+import Vecino from '../../models/vecinos/vecinoModel.js';
 
 export const registerVecino = async (req, res) => {
   try {

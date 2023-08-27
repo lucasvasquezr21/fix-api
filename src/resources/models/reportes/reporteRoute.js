@@ -1,7 +1,7 @@
 // src/routes/userRoutes.js
 import express from 'express';
 import { getReportes, createReporte, getReporteById, updateReporte, deleteReporte } from './reporteController.js'
-import authenticateToken from '../auth/middlewares/authenticateToken.js';
+import authenticateToken from '../../auth/middlewares/authenticateToken.js';
 
 const router = express.Router();
 

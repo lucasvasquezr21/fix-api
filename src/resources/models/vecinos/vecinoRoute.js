@@ -1,7 +1,7 @@
 // src/routes/userRoutes.js
 import express from 'express';
 import { getVecinos, createVecino, getVecinoById, updateVecino, deleteVecino } from './vecinoController.js'
-import authenticateToken from '../auth/middlewares/authenticateToken.js';
+import authenticateToken from '../../auth/middlewares/authenticateToken.js';
 
 const router = express.Router();
 

@@ -4,12 +4,12 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import environment from './config/environment.js';
 import authRoutes from './resources/auth/routes/authRoutes.js';
-import userRoutes from './resources/users/userRoute.js';
-import adminRoutes from './resources/admins/adminRoute.js';
-import categoriaRoutes from './resources/categorias/categoriaRoute.js';
-import vecinosRoutes from './resources/vecinos/vecinoRoute.js';
-import reportesRoutes from './resources/reportes/reporteRoute.js';
-import alertasRoutes from './resources/alertas/alertaRoute.js';
+import userRoutes from './resources/models/users/userRoute.js';
+import adminRoutes from './resources/models/admins/adminRoute.js';
+import categoriaRoutes from './resources/models/categorias/categoriaRoute.js';
+import vecinosRoutes from './resources/models/vecinos/vecinoRoute.js';
+import reportesRoutes from './resources/models/reportes/reporteRoute.js';
+import alertasRoutes from './resources/models/alertas/alertaRoute.js';
 import { errorHandler } from './resources/auth/helpers/errorHandler.js';
 import { connectDB } from './config/database.config.js';
 

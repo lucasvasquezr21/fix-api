@@ -1,7 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import environment from '../../../config/environment.js';
-import User from '../../users/userModel.js';
+import User from '../../models/users/userModel.js';
 
 export const registerUser = async (req, res) => {
   try {
