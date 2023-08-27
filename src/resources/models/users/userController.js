@@ -26,11 +26,12 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  const { name, email, password, country, city, phone, rol, comuna, data } = req.body;
+  const { name, email, rut, password, country, city, phone, rol, comuna, data } = req.body;
   try {
     const newUser = await User.create({
       name,
       email,
+      rut,
       password : await bcryptjs.hash(password, 10),
       country,
       city,
@@ -48,7 +49,7 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password, country, city, phone, rol, comuna, data } = req.body;
+  const { name, email, rut, password, country, city, phone, rol, comuna, data } = req.body;
   try {
     const user = await User.findById(id);
     if (!user) {
@@ -56,6 +57,7 @@ export const updateUser = async (req, res) => {
     }
     if (name) user.name = name;
     if (email) user.email = email;
+    if (rut) user.rut = rut;
     if (password) user.password = await bcryptjs.hash(password, 10);
     if (country) user.country = country;
     if (city) user.city = city;

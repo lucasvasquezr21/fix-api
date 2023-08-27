@@ -2,14 +2,15 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: false },
+  name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
+  rut : { type: String, required: true },
   password: { type: String, required: true },
-  country : { type: String, required: false },
-  city : { type: String, required: false },
+  country : { type: String, required: true },
+  city : { type: String, required: true },
   phone : { type: String, required: false },
-  rol : { type: String, required: false },
-  comuna : { type: String, required: false },
+  rol : { type: String, required: true },
+  comuna : { type: String, required: true },
   data : { type: Object, required: false },
 }, { timestamps: true });
 

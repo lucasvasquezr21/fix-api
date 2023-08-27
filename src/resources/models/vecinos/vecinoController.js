@@ -12,10 +12,12 @@ export const getVecinos = async (req, res) => {
 };
 
 export const createVecino = async (req, res) => {
-  const { email, password , country, comuna, city,phone,address,data} = req.body;
-  try {
+  const { name, apellidop, apellidom, email, password , comuna, city, country, phone, address, data} = req.body;
+  try { 
     const vecino = await Vecino.create({
       name,
+      apellidop,
+      apellidom,
       email,
       password: await bcryptjs.hash(password, 10),
       country,
@@ -24,7 +26,6 @@ export const createVecino = async (req, res) => {
       phone,
       address,
       data,
-
     });
     res.status(201).json(vecino);
   } catch (error) {
@@ -49,13 +50,15 @@ export const getVecinoById = async (req, res) => {
 
 export const updateVecino = async (req, res) => {
   const { id } = req.params;
-  const { email, password } = req.body;
+  const { name, apellidop, apellidom, email, password, comuna, city, country, phone, address, data} = req.body;
   try {
     const vecino = await Vecino.findById(id);
     if (!vecino) {
       return res.status(404).json({ message: 'Vecino no encontrado' });
     }
-
+    if (name) vecino.name = name;
+    if (apellidop) vecino.apellidop = apellidop;
+    if (apellidom) vecino.apellidom = apellidom;
     if (email) vecino.email = email;
     if (password) vecino.password = await bcryptjs.hash(password, 10);
     if (country) vecino.country = country;

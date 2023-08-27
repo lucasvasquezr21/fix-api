@@ -6,7 +6,7 @@ import Admin from '../../models/admins/adminModel.js';
 export const registerAdmin = async (req, res) => {
   try {
     console.log(req.body);
-    const {email, password } = req.body;
+    const {name, email, password, country, comuna, city, phone, rol, data} = req.body;
 
     // Verificar si ya existe un admin con el mismo correo electrónico
     const existingAdmin = await Admin.findOne({ email });
@@ -16,11 +16,11 @@ export const registerAdmin = async (req, res) => {
 
     // Crear un nuevo Admin
     const hashedPassword = await bcryptjs.hash(password, 10);
-    const newAdmin = new Admin({email, password: hashedPassword });
+    const newAdmin = new Admin({email, password: hashedPassword, name, country, comuna, city, phone, rol, data });
     await newAdmin.save();
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ madminId: newAdmin._id }, environment.secretKey, { expiresIn: '5m' });
+    const accessToken = jwt.sign({ madminId: newAdmin._id }, environment.secretKey, { expiresIn: '50m' });
 
     // Enviar una respuesta al cliente
     res.status(201).json({ accessToken });
@@ -46,7 +46,7 @@ export const loginAdmin = async (req, res) => {
     }
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ adminId: admin._id }, environment.secretKey, { expiresIn: '30m' });
+    const accessToken = jwt.sign({ adminId: admin._id }, environment.secretKey, { expiresIn: '50m' });
 
     // Enviar una respuesta al cliente
     res.status(200).json({ accessToken });
