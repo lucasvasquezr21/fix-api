@@ -33,7 +33,7 @@ export const createAdmin = async (req, res) => {
     const admin = new Admin({
       name,
       email,
-      password,
+      password : await bcryptjs.hash(password, 10),
       country,
       comuna,
       city,
@@ -51,7 +51,7 @@ export const createAdmin = async (req, res) => {
 // Modificar un admin
 export const updateAdmin = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password, country, comuna, city, phone, rol, data } = req.body;
+  const { name, email} = req.body;
   try {
     const admin = await Admin.findById(id);
     if (!admin) {
