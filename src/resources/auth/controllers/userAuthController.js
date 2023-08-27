@@ -19,7 +19,7 @@ export const registerUser = async (req, res) => {
     await newUser.save();
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ userId: newUser._id }, environment.secretKey, { expiresIn: '5m' });
+    const accessToken = jwt.sign({ userId: newUser._id }, environment.secretKey, { expiresIn: '30m' });
 
     // Enviar una respuesta al cliente
     res.status(201).json({ success: true, accessToken });

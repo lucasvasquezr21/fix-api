@@ -48,7 +48,7 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { email, password} = req.body;
+  const { name, email, password, country, city, phone, rol, comuna, data } = req.body;
   try {
     const user = await User.findById(id);
     if (!user) {
