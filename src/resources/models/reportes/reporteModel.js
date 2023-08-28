@@ -7,6 +7,7 @@ const reporteSchema = new mongoose.Schema({
   description: { type: String, required: true },
   img: { type: String, required: false },
   ubication: { type: String, required: true },
+  comuna: { type: String, required: true },
   date: { type: Date, required: false },
   data: { type: Object, required: false },
 }, { timestamps: true });
