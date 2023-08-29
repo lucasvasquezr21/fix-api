@@ -20,7 +20,7 @@ export const registerAdmin = async (req, res) => {
     await newAdmin.save();
 
     // Generar un token de acceso
-    const accessToken = jwt.sign({ madminId: newAdmin._id }, environment.secretKey, { expiresIn: '50m' });
+    const accessToken = jwt.sign({ adminId: newAdmin._id }, environment.secretKey, { expiresIn: '50m' });
 
     // Enviar una respuesta al cliente
     res.status(201).json({ accessToken });

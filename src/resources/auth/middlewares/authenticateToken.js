@@ -30,7 +30,8 @@ const authenticateToken = async (req, res, next) => {
     // const tarea = await Tarea.findById(decodedToken.tareaId);
     const rol = await Rol.findById(decodedToken.rolId);
     
-    if (!user && !admin && !vecino && !reporte && !alerta && !notificacion && !comuna && !tarea && !rol) {
+    
+    if (!user && !admin && !vecino && !reporte && !alerta && !notificacion && !comuna && !rol) {
       return res.status(401).json({ message: 'Token de acceso no válido' });
     }
     req.user = user;
@@ -42,7 +43,7 @@ const authenticateToken = async (req, res, next) => {
     req.notificacion = notificacion;
     // req.tarea = tarea;
     req.rol = rol;
-
+    
     next();
   } catch (error) {
     console.error(error);

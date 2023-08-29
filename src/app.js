@@ -9,9 +9,9 @@ import adminRoutes from './resources/models/admins/adminRoute.js';
 import categoriaRoutes from './resources/models/categorias/categoriaRoute.js';
 import vecinosRoutes from './resources/models/vecinos/vecinoRoute.js';
 import reportesRoutes from './resources/models/reportes/reporteRoute.js';
-import alertasRoutes from './resources/models/alertas/alertaRoute.js';
 import { errorHandler } from './resources/auth/helpers/errorHandler.js';
 import { connectDB } from './config/database.config.js';
+import alertasRoutes from './resources/models/alertas/alertaRoute.js';
 
 const app = express();
 
@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 // Manejo de errores
 app.use(errorHandler); // Middleware de manejo de errores
 
+// Rutas de la API
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/admins', adminRoutes);
