@@ -28,12 +28,16 @@ export const getAlertaById = async (req, res) => {
 
 // Crear un alerta
 export const createAlerta = async (req, res) => {
-  const { title, description, ubication, img, date, data} = req.body;
+  const { title, description, ubication, latitude, longitude, comuna, poblacion, img, date, data} = req.body;
   try {
     const alerta = new Alerta({
       title,
       description,
       ubication,
+      latitude,
+      longitude,
+      comuna,
+      poblacion,
       img,
       date,
       data
@@ -48,7 +52,7 @@ export const createAlerta = async (req, res) => {
 // Modificar un alerta
 export const updateAlerta = async (req, res) => {
   const { id } = req.params;
-  const { title, description, ubication, img, date, data} = req.body;
+  const { title, description, ubication, latitude, longitude, comuna, poblacion, img, date, data} = req.body;
   try {
     const alerta = await Alerta.findById(id);
     if (!alerta) {
@@ -58,6 +62,10 @@ export const updateAlerta = async (req, res) => {
     alerta.title = title;
     alerta.description = description;
     alerta.ubication = ubication;
+    alerta.latitude = latitude;
+    alerta.longitude = longitude;
+    alerta.comuna = comuna;
+    alerta.poblacion = poblacion;
     alerta.img = img;
     alerta.date = date;
     alerta.data = data;

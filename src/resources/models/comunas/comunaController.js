@@ -27,13 +27,21 @@ export const getComunaById = async (req, res) => {
 
 // Crear una categoría
 export const createComuna = async (req, res) => {
-  const { title } = req.body;
+  const { nombre, alcalde, poblacion, codigo, latitude, longitude, gentilicio, provincia, logo, escudo, date, data} = req.body;
   try {
     const nuevaComuna = await Comuna.create({
-       title,
-       description,
-       img,
-       date
+      nombre,
+      alcalde,
+      poblacion,
+      codigo,
+      latitude,
+      longitude,
+      gentilicio,
+      provincia,
+      logo,
+      escudo,
+      date,
+      data,
       });
     res.status(201).json(nuevaComuna);
   } catch (error) {
@@ -44,11 +52,11 @@ export const createComuna = async (req, res) => {
 // Modificar una categoría
 export const updateComuna = async (req, res) => {
   const { id } = req.params;
-  const { title, description, img, date } = req.body;
+  const { nombre, alcalde, poblacion, codigo, latitude, longitude, gentilicio, provincia, logo, escudo, date, data } = req.body;
   try {
     const comunaActualizada = await Comuna.findByIdAndUpdate(
       id,
-      { title, description, img, date},
+      { nombre, alcalde, poblacion, codigo, latitude, longitude, gentilicio, provincia, logo, escudo, date, data},
       { new: true }
     );
     if (!comunaActualizada) {

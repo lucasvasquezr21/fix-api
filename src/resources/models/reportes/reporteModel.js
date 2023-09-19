@@ -8,6 +8,9 @@ const reporteSchema = new mongoose.Schema({
   img: { type: String, required: false },
   ubication: { type: String, required: true },
   comuna: { type: String, required: true },
+  latitude: { type: Number, required: false },
+  longitude: { type: Number, required: false },
+  poblacion: { type: String, required: false },
   date: { type: Date, required: false },
   data: { type: Object, required: false },
 }, { timestamps: true });

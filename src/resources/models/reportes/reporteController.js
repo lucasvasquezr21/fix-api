@@ -27,7 +27,7 @@ export const getReporteById = async (req, res) => {
 
 // Crear un reporte
 export const createReporte = async (req, res) => {
-  const { title, usuario, description, img, ubication, comuna, date, data } = req.body;
+  const { title, usuario, description, img, ubication, comuna, latitude, longitude, poblacion, date, data } = req.body;
   try {
     const nuevoReporte = await Reporte.create({
        title,
@@ -36,6 +36,9 @@ export const createReporte = async (req, res) => {
        img,
        ubication,
        comuna,
+       latitude,
+       longitude,
+       poblacion,
        date,
        data,
       });
@@ -48,11 +51,11 @@ export const createReporte = async (req, res) => {
 // Modificar una reporte
 export const updateReporte = async (req, res) => {
   const { id } = req.params;
-  const { title, description, img, ubication, comuna, date , data} = req.body;
+  const { title, description, img, ubication, comuna, latitude, longitude, poblacion, date , data} = req.body;
   try {
     const reporteActualizado = await Reporte.findByIdAndUpdate(
       id,
-      { title, description, img, ubication, comuna, date, data},
+      { title, description, img, ubication, comuna, latitude, longitude, poblacion, date, data},
       { new: true }
     );
     if (!reporteActualizado) {
@@ -71,11 +74,11 @@ export const deleteReporte = async (req, res) => {
   try {
     const reporteEliminado = await Reporte.findByIdAndDelete(id);
     if (!reporteEliminado) {
-      res.status(404).json({ error: 'Reporte no encontrada' });
+      res.status(404).json({ error: 'Reporte no encontrado' });
       return;
     }
-    res.json({ message: 'Reporte eliminada exitosamente' });
+    res.json({ message: 'Reporte eliminado exitosamente' });
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar la reporte' });
+    res.status(500).json({ error: 'Error al eliminar el reporte' });
   }
 };
